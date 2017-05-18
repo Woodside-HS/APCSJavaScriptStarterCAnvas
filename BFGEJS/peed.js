@@ -1,23 +1,7 @@
 'use strict'
 
 class Peed{
-  //used for both player and loop
-  this.body = [];
-  //Gathers the indexes of each segment that hits a boid
-  this.peedHitIndexes = [];
-  //Gathers the indexes of each segment that hits a boid
-  this.loc = new vector2d();
-  this.clr;
-  this.north
-  this.south
-  this.east
-  this.west
-  this.moved;
-  this.name;
-  this.segCount;
-  this.peedDelay;
-  this.addSegmentInterval = 100;
-  this.lastSegmentAdded;
+
 
   constructor(headLocation, segmentCount, name) {
     this.name = name;
@@ -31,7 +15,23 @@ class Peed{
   }
 
   init(){
-
+    //used for both player and loop
+    this.body = [];
+    //Gathers the indexes of each segment that hits a boid
+    this.peedHitIndexes = [];
+    //Gathers the indexes of each segment that hits a boid
+    this.loc = new vector2d();
+    this.clr;
+    this.north
+    this.south
+    this.east
+    this.west
+    this.moved;
+    this.name;
+    this.segCount;
+    this.peedDelay;
+    this.addSegmentInterval = 100;
+    this.lastSegmentAdded;
   }
 
   run() { // update this
@@ -45,7 +45,7 @@ class Peed{
   }
   render() { // render or draw this to canvas
     for (i = 0; i < this.body.length; i++) {
-      body[i].display("");
+      this.body[i].display("");
     }
   }
 
@@ -53,10 +53,34 @@ class Peed{
   addBodySegments(numSegments) {
 
     for (i = 0; i < numSegments; i++) {
-      this.x = (int)game.player.body[i].loc.x;
-      this.y = (int)game.player.body[i].loc.y;
+      this.x = game.player.body[i].loc.x;
+      this.y = game.player.body[i].loc.y;
       this.body.push(new Segment(this.x, this.y, i));
 
     }
   }
+
+  //Use key code to set direction
+   setDirection(kc) {
+      // set to true no matter what key is pressed
+     this.north = this.south = this.east = this.west = false;
+     switch(kc) {
+     case UP:
+       this.north = true;
+       this.moved = true;
+       break;
+     case RIGHT:
+       this.east = true;
+       this.moved = true;
+       break;
+     case DOWN:
+       this.south = true;
+       this.moved = true;
+       break;
+     case LEFT:
+       this.west = true;
+       this.moved = true;
+       break;
+     }
+   }
 }
