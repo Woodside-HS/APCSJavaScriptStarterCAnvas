@@ -70,10 +70,10 @@ class Segment {
 
 
   hitTest(b) {
-    if (b.loc.x > loc.x &&
-      b.loc.x < loc.x + blockSize &&
-      b.loc.y > loc.y &&
-      b.loc.y < loc.y + blockSize) return true;
+    if (b.loc.x > this.loc.x &&
+      b.loc.x < this.loc.x + blockSize &&
+      b.loc.y > this.loc.y &&
+      b.loc.y < this.loc.y + blockSize) return true;
     return false;
   }
 }  // end class
