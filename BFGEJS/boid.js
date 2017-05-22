@@ -47,31 +47,33 @@ class Boid {
 
   update() { // render or draw this to canvas
     if(this.loc.dist(this.main.base.loc) < 400){
-      this.dir = vector2d.sub(this.loc, this.main.base.loc);
+      this.dir = this.loc.copy().sub(this.main.base.loc);
       this.dir.normalize();
       this.dir.scale(.005);
-      this.acc.add(dir);
+      this.acc.add(this.dir);
       this.acc.scale(0);
     }
 
     if(this.loc.dist(this.main.base.loc) < 200){
-      this.dir = vector2d.sub(this.loc, this.main.base.loc);
+      this.dir = this.loc.copy().sub(this.main.base.loc);
       this.dir.normalize();
       this.dir.scale(.08);
-      this.acc.add(dir);
+      this.acc.add(this.dir);
     }
 
     if(this.loc.dist(this.main.base.loc) < 50){
-      this.dir = vector2d.sub(this.loc, this.main.base.loc);
+      this.dir = this.loc.copy().sub(this.main.base.loc);
       this.dir.normalize();
       this.dir.scale(.5);
-      this.acc.add(dir);
+      this.acc.add(this.dir);
     }
     // Update vel
-    this.vel.add(acc);
+    this.vel.add(this.acc);
     // Limit speed
-    this.vel.limit(maxspeed);
-    this.loc.add(vel);
+    if(this.vel.length > this.maxspeed){
+      this.vel.normalize().scale(this.maxspeed);
+    }
+    this.loc.add(this.vel);
     // Reset accelertion to 0 each cycle
     this.acc.scale(0);
     if(this.getInLoop()){
@@ -80,20 +82,20 @@ class Boid {
   }
 
   seek(target){
-    this.desired = vector2d.sub(target, this.loc)
+    this.desired = target.copy().sub(this.loc)
     this.desired.normalize();
     this.desired.scale(this.maxspeed);
-    this.steer = vector2d.sub(dthis.esired, this.vel);
+    this.steer = this.desired.copy().sub(this.vel);
     this.steer.limit(this.maxforce);  // Limit to maximum steering force
     return this.steer;
   }
 
   render() { // render or draw this to canvas
     //console.log("loc.x = " + this.loc.x);
-    this.theta = this.vel.angle + radians(90);
-    this.context.strokeWeight(2)
+    this.theta = this.vel.angle + 1.57079634;
+    this.context.lineWidth = 2
     this.context.stroke()
-    this.context.push()
+    this.context.save()
     this.context.translate(this.loc.x, this.loc.y)
     this.context.rotate(this.theta)
     this.context.beginPath()
@@ -102,11 +104,10 @@ class Boid {
     this.context.lineTo(this.r,this.r*2)
     this.context.fillStyle = 'blue'
     this.context.fill()
-    this.context.pop()
+    this.context.restore()
   }
 
   checkEdges(){
-    console.log("this.loc.x = " + this.loc.x);
     if (this.loc.x < this.r) loc.x = this.main.canvas.width-this.r;
     if (this.loc.y < this.r) loc.y = this.main.canvas.height-this.r;
     if (this.loc.x > this.main.canvas.width-this.r) this.loc.x = this.r;
@@ -145,7 +146,9 @@ class Boid {
       this.steer.normalize();
       this.steer.scale(this.maxspeed);
       this.steer.sub(this.vel);
-      this.steer.limit(this.maxforce);
+      if(this.steer.length > this.maxspeed){
+        this.steer.normalize().scale(this.maxspeed);
+      }
     }
     return this.steer;
   }
@@ -171,7 +174,9 @@ class Boid {
       this.sum.normalize();
       this.sum.scale(this.maxspeed);
       this.steer = vector2d.sub(this.sum, this.vel);
-      this.steer.limit(this.maxforce);
+      if(this.steer.length > this.maxspeed){
+        this.steer.normalize().scale(this.maxspeed);
+      }
       return this.steer;
     }
     else {
@@ -199,5 +204,13 @@ class Boid {
     else {
       return vector2d(0, 0);
     }
+  }
+
+  setInLoop(inLoop) {
+    this.inLoop = inLoop;
+  }
+
+  getInLoop() {
+    return this.inLoop;
   }
 }
