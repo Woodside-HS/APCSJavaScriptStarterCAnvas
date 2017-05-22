@@ -214,3 +214,99 @@ class Boid {
     return this.inLoop;
   }
 }
+
+class BoidOne extends Boid{
+  constructor(x, y) {
+    super(x, y);
+    this.maxspeed = 33;
+    this.hitPlayer = false;
+    this.count = Math.random()*birdOneImages.length-1;
+  }
+
+  display() {
+    this.angle = this.vel.angle + 1.57079634;
+    this.context.stroke(50, 50, 250);
+    this.context.fill(255, 20, 2);
+    this.context.save();
+    this.context.translate(loc.x, loc.y);
+      //scale(2);
+    this.context.rotate(angle);
+    this.context.drawImage(birdOneImages[count++], 0, 0 );
+    this.context.restore();
+    if(this.count >= birdOneImages.length - 1){
+      this.count = 0;
+    }
+  }
+}
+
+class BoidTwo extends Boid{
+  constructor(x, y) {
+    super(x, y);
+    this.maxspeed = 12;
+    this.hitPlayer = false;
+    this.count = Math.random()*birdOneImages.length-1;
+  }
+
+  display() {
+    this.angle = this.vel.angle + 1.57079634;
+    this.context.stroke(50, 50, 250);
+    this.context.fill(255, 20, 2);
+    this.context.save();
+    this.context.translate(loc.x, loc.y);
+      //scale(2);
+    this.context.rotate(angle);
+    this.context.drawImage(birdTwoImages[count++], 0, 0 );
+    this.context.restore();
+    if(this.count >= birdTwoImages.length - 1){
+      this.count = 0;
+    }
+  }
+}
+
+class BoidThree extends Boid{
+  constructor(x, y) {
+    super(x, y);
+    this.maxspeed = 1.8;
+    this.hitPlayer = false;
+    this.count = Math.random()*birdOneImages.length-1;
+  }
+
+  display() {
+    this.angle = this.vel.angle + 1.57079634;
+    this.context.stroke(50, 50, 250);
+    this.context.fill(255, 20, 2);
+    this.context.save();
+    this.context.translate(loc.x, loc.y);
+      //scale(2);
+    this.context.rotate(angle);
+    this.context.drawImage(birdThreeImages[count++], 0, 0 );
+    this.context.restore();
+    if(this.count >= birdThreeImages.length - 1){
+      this.count = 0;
+    }
+  }
+}
+
+class BoidFour extends Boid{
+  constructor(x, y) {
+    super(x, y);
+    this.maxspeed = 2;
+    this.hitPlayer = false;
+    this.count = Math.random()*birdOneImages.length-1;
+  }
+
+  display() {
+    this.angle = this.vel.angle + 1.57079634;
+    this.context.stroke(50, 50, 250);
+    this.context.fill(255, 20, 2);
+    this.context.save();
+    this.context.translate(loc.x, loc.y);
+      //scale(2);
+    this.context.rotate(angle);
+    this.context.drawImage(birdFourImages[count++], 0, 0 );
+    this.context.restore();
+    if(this.count >= birdFourImages.length - 1){
+      this.count = 0;
+    }
+  }
+}
