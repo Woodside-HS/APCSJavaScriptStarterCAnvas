@@ -108,8 +108,8 @@ class Boid {
   }
 
   checkEdges(){
-    if (this.loc.x < this.r) loc.x = this.main.canvas.width-this.r;
-    if (this.loc.y < this.r) loc.y = this.main.canvas.height-this.r;
+    if (this.loc.x < this.r) this.loc.x = this.main.canvas.width-this.r;
+    if (this.loc.y < this.r) this.loc.y = this.main.canvas.height-this.r;
     if (this.loc.x > this.main.canvas.width-this.r) this.loc.x = this.r;
     if (this.loc.y > this.main.canvas.height-this.r) this.loc.y = this.r;
   }
