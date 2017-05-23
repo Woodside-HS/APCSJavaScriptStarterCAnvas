@@ -2,7 +2,7 @@ class Flock {
 
   constructor(main) {
     this.main = main
-    this.boids = []]; // Initialize the ArrayList
+    this.boids = []; // Initialize the ArrayList
     this.boidsOne;     // An ArrayList for type one the boids
     this.boidsTwo;     // An ArrayList for type two the boids
     this.boidsThree; // An ArrayList for type three the boids
