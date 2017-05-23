@@ -6,10 +6,10 @@ class Loop extends Peed {
   Loop( PVector loc, int segmentCount, String name) {
     super( loc, segmentCount, name);
     addBodySegments(segmentCount);
-  }
+  } 
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   void run() {
-    update();
+    update(); 
     display();
   }
 
@@ -28,8 +28,8 @@ class Loop extends Peed {
           game.flock.boids.remove(i);
           count++;
         }
-      }
-
+      } 
+      
       if(game.flock.boids.size() < 1){
         level += 2;
         game.generateFlock(5*level);
@@ -42,7 +42,7 @@ class Loop extends Peed {
 //        break;
 //      case 3:
 //        game.addBoidsToFlock(3*count, "blackBird");
-//        break;
+//        break;        
 //      case 5:
 //        game.addBoidsToFlock(3*count, "whiteBird");
 //        break;
@@ -50,7 +50,7 @@ class Loop extends Peed {
 //        game.addBoidsToFlock(3*count, "batBird");
 //        break;
 //      }
-
+      
       game.loopMade = false;
     }
   }
@@ -65,12 +65,12 @@ class Loop extends Peed {
 
   // //  ads (numSegments) segment abject to the body arraylist
   //  void addBodySegments(int numSegments) {
-  //
+  //     
   //    for (int i = 0; i < numSegments; i++) {
   //      int x = (int)game.player.body.get(i).loc.x;
   //      int y = (int)game.player.body.get(i).loc.y;
   //      body.add(new Segment(x, y, i));
-  //
+  //      
   //    }
   //  }
 }  //  +++++++++++++++++++++++++++++++++++++++++  end class

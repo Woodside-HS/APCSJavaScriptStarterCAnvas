@@ -5,6 +5,26 @@ window.addEventListener('load', setup, false);
 
 var main;   // the global Main object
 const FRAME_RATE=30;
+const TWO_PI = Math.PI
+//  ++++++  Gloabal Variables
+var startGameTime = 0;
+var blockSize = 15;
+var numBlocks = 60;
+var infoBarSize = 150;
+var playAreaSize = blockSize*numBlocks;
+var screenW = blockSize*numBlocks + infoBarSize;
+var screenH = blockSize*numBlocks;
+var highestScore = 0;
+var level, currLevel;
+//  ++++++  Declare images
+var clock, seg, home;
+var segHeadImages;
+var birdOneImages;
+var birdTwoImages;
+var birdThreeImages;
+var birdFourImages;
+//  ++++++  Global objects
+var game;
 
 function setup() {
   main = new Main();
@@ -41,7 +61,7 @@ class Main {
     // declare instance variables for main
     this.menuButtons = [];
     this.makeRect = false;
-    this.b = new Boid(this, vector2d(300, 300));
+    this.boids = []
     //create all initial items
     this.init();
 
@@ -58,10 +78,18 @@ class Main {
     // create menu buttons
     this.createMenuButtons();
 
+    // create boids
+    for(let i = 0; i < 8; i++){
+      this.boids[i] = new Boid(this, 300,300);
+    }
+
+    this.base = new Base(this, vector2d(blockSize*12-25, blockSize*12-25));
   }
 
   run() { // update canvas components --> called from draw()
-     this.b.run();
+    for(let j in this.boids){
+      this.boids[j].run(this.boids)
+    }
      this.render();
 
   }
