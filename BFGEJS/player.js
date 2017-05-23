@@ -27,8 +27,8 @@ update() { // render or draw this to canvas
   if (this.pbody.length < 1) return;
       // Check each boid to see if it is touching any segments in loop
   this.peedhitindexes  = [];
-  for (i = 0; i < this.body.length; i++) {
-    for (j = 0; j < game.flock.boids.length; j++)
+  for (let i = 0; i < this.body.length; i++) {
+    for (let j = 0; j < game.flock.boids.length; j++)
       if (this.body[i].hitTest(game.flock.boids[j])) {
         this.peedhitindexes.push(i);
       }
