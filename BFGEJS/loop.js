@@ -23,9 +23,7 @@ class Loop extends Peed{
       //remove all looped-boids from flock
       this.count = 0;
       for (i = game.flock.boids.length - 1; i >= 0; i-- ) {
-
-        if (game.flock.boids[i].inLoop ) {
-
+        if (game.flock.boids[i].inLoop) {
           game.flock.boids.splice(i, 1);
           this.count++;
         }

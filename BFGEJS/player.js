@@ -27,9 +27,9 @@ update() { // render or draw this to canvas
   if (this.pbody.length < 1) return;
       // Check each boid to see if it is touching any segments in loop
   this.peedhitindexes  = [];
-  for (i = 0; i < this.body.length; i++) {
-    for (j = 0; j < game.flock.boids.length; j++)
-      if (this.body[i]).hitTest(game.flock.boids[j]) {
+  for (let i = 0; i < this.body.length; i++) {
+    for (let j = 0; j < game.flock.boids.length; j++)
+      if (this.body[i].hitTest(game.flock.boids[j])) {
         this.peedhitindexes.push(i);
       }
   }
@@ -73,7 +73,7 @@ if (this.body[0].loc.x < 0                       ||
 
 // If head touches this.body, then loop created
 if (this.moved)
-  for (int i = this.body.size() - 1; i > 1 ; i--) {
+  for (let i = this.body.size() - 1; i > 1 ; i--) {
     if (this.body.get(0).loc.x == this.body.get(i).loc.x && this.body.get(0).loc.y == this.body.get(i).loc.y) {
       game.makeLoop(i);
       game.loopMade = true;
@@ -99,7 +99,7 @@ render() { // render or draw this to canvas
 //  +++++++++++++++++++++++++++++++++  helper function for remove segments in update
 getMinIndex() {
   this.min1 = MAX_INT;
-  for (Integer x:this.peedhitindexes) {
+  for (var x in this.peedhitindexes) {
     if (this.min1 > x) {
       this.min1 = x;
     }
@@ -107,7 +107,7 @@ getMinIndex() {
   return this.min1;
 }
 
-addthis.bodySegments(numSegments) {
+bodySegments(numSegments) {
   if (numSegments == 1) {
     this.body.push(new Segment(this.body[this.body.size() - 1].loc.x, this.body[this.body.size() - 1].loc.y, 1));
   }
