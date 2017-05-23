@@ -38,10 +38,10 @@ class Segment {
       this.context.fillStyle = '#FF1402'
       //ellipse(loc.x, loc.y, 15, 15);
       this.context.save()
-      if (game.player.west)  this.angle += 3.1415926536;
-      if (game.player.east)  this.angle += 0;
-      if (game.player.north) this.angle += -1.5707963268;
-      if (game.player.south) this.angle += 1.5707963268;
+      if (this.main.player.west)  this.angle += 3.1415926536;
+      if (this.main.player.east)  this.angle += 0;
+      if (this.main.player.north) this.angle += -1.5707963268;
+      if (this.main.player.south) this.angle += 1.5707963268;
       this.context.translate(this.loc.x, this.loc.y);
       this.context.rotate(this.angle);
       this.context.scale(1.5,1.5);
@@ -60,8 +60,8 @@ class Segment {
       if(this.index < 5){
         this.context.scale(.2*this.index,.2*this.index)
       }
-      if(this.index > game.player.body.size() - 6 ){
-        scale(.18*(game.player.body.size()-this.index),.18*(game.player.body.size()-this.index));
+      if(this.index > this.main.player.body.size() - 6 ){
+        scale(.18*(this.main.player.body.size()-this.index),.18*(this.main.player.body.size()-this.index));
       }
       this.context.drawImage("seg.png", 0, 0 );
       this.context.restore()
@@ -70,10 +70,9 @@ class Segment {
 
 
   hitTest(b) {
-    if (b.loc.x > this.loc.x &&
+    return (b.loc.x > this.loc.x &&
       b.loc.x < this.loc.x + blockSize &&
       b.loc.y > this.loc.y &&
-      b.loc.y < this.loc.y + blockSize) return true;
-    return false;
+      b.loc.y < this.loc.y + blockSize)
   }
 }  // end class
