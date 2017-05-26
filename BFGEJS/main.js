@@ -25,15 +25,55 @@ var birdThreeImages;
 var birdFourImages;
 //  ++++++  Global objects
 var game;
+var startTimeOffSet = new Date().getMilliseconds()
 
 function setup() {
-  main = new Main();
+  game = new Game(this);
+  initGame();
   window.setTimeout(draw, 100);    // wait 100ms for resources to load then start draw loop
 }
 
 function draw() {   // the animation loop
-  main.run();
+  game.run();
   window.setTimeout(draw, 1000/FRAME_RATE);  // come back here every interval
+}
+
+function initGame() {
+ level = currLevel = 0;
+ loadImages();
+}
+
+function loadImages() {
+  clock = "yb.png"
+  seg = "seg.png"
+  home = "w.png"
+
+  //+++++++  Bird One  +++++++++++++++++++++++++++++++++
+  birdOneImages = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+  for (let i=0; i < birdOneImages.length-1; i++) {
+    birdOneImages[i] = "/birdOne/b"+i+".png";
+  }
+  //+++++++  Bird Two  +++++++++++++++++++++++++++++++++
+  birdTwoImages = new Image();
+  for (let i=0; i < birdTwoImages.length - 1; i++) {
+    birdTwoImages[i] = loadImage("/birdTwo/bb"+i+".png");
+  }
+  //+++++++  Bird Three  +++++++++++++++++++++++++++++++++
+  birdThreeImages = new Image();
+  for (let i=0; i < birdThreeImages.length - 1; i++) {
+    birdThreeImages[i] = loadImage("/birdThree/b"+i+".png");
+  }
+  //+++++++  Bird Four  +++++++++++++++++++++++++++++++++
+  birdFourImages = new Image();
+  for (let i=0; i < birdFourImages.length - 1; i++) {
+    birdFourImages[i] = loadImage("/Bat/b"+i+".png");
+  }
+
+  //+++++++  SegHead  +++++++++++++++++++++++++++++++++
+  segHeadImages = new Image();
+  for (let i=0; i < segHeadImages.length - 1; i++) {
+    segHeadImages[i] = loadImage("/segHead/h"+i+".png");
+  }
 }
 
 // Start main class  +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -146,4 +186,15 @@ function buttonMouseOutHandler(){
 
 function buttonMouseClickHandler(){
   main.makeRect = !main.makeRect;
+}
+function mousePressed() {
+  game.mousePressedHandler(new vector2d(mouseX, mouseY));
+}
+
+function mouseMoved() {
+  game.mouseMovedHandler(new vector2d(mouseX, mouseY));
+}
+
+function keyPressed() {
+  game.keyCodeHandler(keyCode);
 }

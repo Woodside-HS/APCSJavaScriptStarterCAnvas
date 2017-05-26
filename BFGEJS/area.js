@@ -1,12 +1,10 @@
 'use strict'
 
-class gameArea{
-this.loc;
-this.myWidth;
-this.myHeight;
-this.clr;
+class GameArea{
 
-constructor(location, w, h, c){
+constructor(main, location, w, h, c){
+  this.main = main
+  this.context = this.main.context;
   this.loc = location;
   this.myWidth = w;
   this.myHeight = h;
@@ -14,7 +12,6 @@ constructor(location, w, h, c){
 }
 
 init(){
-
 }
 
 run() { // update this
@@ -34,9 +31,9 @@ render() { // render or draw this to canvas
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-class playArea extends gameArea{
-  constructor(location, w, h, c){
-
+class PlayArea extends GameArea{
+  constructor(main, location, w, h, c){
+    super(main, location, w, h, c)
   }
   init(){
 
@@ -67,12 +64,10 @@ class playArea extends gameArea{
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-class splashArea extends gameArea {
+class SplashArea extends GameArea {
 
-  this.bsi;
-  this.nb;
-
-  constructor(location, w, h, c, buttonsStartIndex, numberButtons) {
+  constructor(main, location, w, h, c, buttonsStartIndex, numberButtons) {
+    super(main, location, w, h, c)
     this.bsi = buttonsStartIndex;
     this.nb = numberButtons;
   }
@@ -97,11 +92,11 @@ class splashArea extends gameArea {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-class infoArea extends gameArea{
+class InfoArea extends GameArea{
 
 
-constructor(location, w, h, c){
-
+constructor(main, location, w, h, c){
+  super(main, location, w, h, c)
 }
 
 run(){
@@ -110,8 +105,8 @@ run(){
 
 render(){
   this.yOffset = 270;
-  fill(this.clr);
-  stroke(2);
+  this.context.fillStyle = this.clr
+  this.context.lineWidth = 2
   fillRect(this.loc.x, this.loc.y, this.myWidth, this.myHeight, 20);
   textSize(20);
   //Score rectangle

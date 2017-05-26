@@ -1,8 +1,11 @@
 class Loop extends Peed{
 
 
-  constructor(loc, segmentCount, name) {
- this.addBodySegments(segmentCount);
+  constructor(main, loc, segmentCount, name) {
+    super(main, loc, segmentCount, name)
+    this.main = main
+    this.context = this.main.context;
+    this.addBodySegments(segmentCount);
   }
 
   init(){
@@ -15,14 +18,14 @@ class Loop extends Peed{
   }
   update() { // render or draw this to canvas
     //remove loop after spec time
-    if (millis() - game.loopTimeLapsed > 2000 && this.body.length > 0 ) {
+    if (new Date().getMilliseconds() - startTimeOffSet - game.loopTimeLapsed > 2000 && this.body.length > 0 ) {
       // remove all segments from loop body
-      for (i = body.length - 1; i >= 0; i-- ) {
+      for (let i = body.length - 1; i >= 0; i-- ) {
         body.splice(i, 1);
       }
       //remove all looped-boids from flock
       this.count = 0;
-      for (i = game.flock.boids.length - 1; i >= 0; i-- ) {
+      for (let i = game.flock.boids.length - 1; i >= 0; i-- ) {
         if (game.flock.boids[i].inLoop) {
           game.flock.boids.splice(i, 1);
           this.count++;
@@ -54,7 +57,7 @@ class Loop extends Peed{
     }
   }
   render() { // render or draw this to canvas
-    for (i = 1; i < this.body.length; i++) {
+    for (let i = 1; i < this.body.length; i++) {
       this.body[i].display("loop");
     }
   }

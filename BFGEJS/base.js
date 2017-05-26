@@ -1,7 +1,8 @@
 class Base {
 
-  constructor(m, location) {
-    this.main = m
+  constructor(main, location) {
+    this.main = main
+    this.context = this.main.context;
     this.loc = location;
   }
 

@@ -2,11 +2,14 @@
 
 class Player extends Peed{
 
-constructor(headLocation, segmentCount, name){
+constructor(main, headLocation, segmentCount, name){
   //add head
 //  this.addthis.bodySegments(segmentCount);
-  this.peedDelay = millis();
-  this.lastSegmentAdded = millis();
+  super(main, headLocation, segmentCount, name)
+  this.main = main
+  this.context = this.main.context;
+  this.peedDelay = new Date().getMilliseconds() - startTimeOffSet;
+  this.lastSegmentAdded = new Date().getMilliseconds() - startTimeOffSet;
 }
 
 init(){
@@ -109,11 +112,11 @@ getMinIndex() {
 
 bodySegments(numSegments) {
   if (numSegments == 1) {
-    this.body.push(new Segment(this.body[this.body.size() - 1].loc.x, this.body[this.body.size() - 1].loc.y, 1));
+    this.body.push(new Segment(this.main, this.body[this.body.size() - 1].loc.x, this.body[this.body.size() - 1].loc.y, 1));
   }
   else {
     for (i = 0; i < numSegments; i++) {
-      this.body.push(new Segment(this.loc.x, this.loc.y, i));
+      this.body.push(new Segment(this.main, this.loc.x, this.loc.y, i));
     }
   }
 }

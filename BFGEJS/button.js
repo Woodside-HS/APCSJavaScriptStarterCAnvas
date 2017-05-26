@@ -1,13 +1,10 @@
 'use strict'
 
 class Button {
-  this.loc;
-  this.myWidth;
-  this.myHeight;
-  this.clr = color(10, 50, 8);
-  this.txt = "";
 
-constructor(txt, loc, w, h, c){
+constructor(main, txt, loc, w, h, c){
+  this.main = main
+  this.context = this.main.context;
   this.txt = txt;
   this.loc = loc;
   this.myWidth = w;
@@ -16,7 +13,11 @@ constructor(txt, loc, w, h, c){
 }
 
 init(){
-
+    this.loc;
+    this.myWidth;
+    this.myHeight;
+    this.clr = "#0A3208"
+    this.txt = "";
 }
 
 run() { // update this

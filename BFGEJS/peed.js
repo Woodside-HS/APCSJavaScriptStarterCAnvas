@@ -3,15 +3,17 @@
 class Peed{
 
 
-  constructor(headLocation, segmentCount, name) {
+  constructor(main, headLocation, segmentCount, name) {
+    this.main = main
+    this.context = this.main.context;
     this.name = name;
     this.segCount = segmentCount;
     this.loc = headLocation;
-    this.clr = color(200, 100, 50);
+    this.clr = "#C86432";
     this.body = [];
     this.north = true;
     this.moved = false;
-    this.lastSegmentAdded = millis();
+    this.lastSegmentAdded = new Date().getMilliseconds() - startTimeOffSet;
   }
 
   init(){
@@ -44,7 +46,7 @@ class Peed{
 
   }
   render() { // render or draw this to canvas
-    for (i = 0; i < this.body.length; i++) {
+    for (let i = 0; i < this.body.length; i++) {
       this.body[i].display("");
     }
   }
@@ -52,10 +54,10 @@ class Peed{
   //  ads (numSegments) segment abject to the body arraylist
   addBodySegments(numSegments) {
 
-    for (i = 0; i < numSegments; i++) {
+    for (let i = 0; i < numSegments; i++) {
       this.x = game.player.body[i].loc.x;
       this.y = game.player.body[i].loc.y;
-      this.body.push(new Segment(this.x, this.y, i));
+      this.body.push(new Segment(this.main, this.x, this.y, i));
 
     }
   }
@@ -65,19 +67,19 @@ class Peed{
       // set to true no matter what key is pressed
      this.north = this.south = this.east = this.west = false;
      switch(kc) {
-     case UP:
+     case 38:
        this.north = true;
        this.moved = true;
        break;
-     case RIGHT:
+     case 39:
        this.east = true;
        this.moved = true;
        break;
-     case DOWN:
+     case 40:
        this.south = true;
        this.moved = true;
        break;
-     case LEFT:
+     case 37:
        this.west = true;
        this.moved = true;
        break;
