@@ -92,7 +92,7 @@ class Boid {
 
   render() { // render or draw this to canvas
     //console.log("loc.x = " + this.loc.x);
-    this.theta = this.vel.angle + 1.57079634;
+    this.theta = this.vel.angle + 1.5707963268;
     this.context.lineWidth = 2
     this.context.stroke()
     this.context.save()
@@ -224,7 +224,7 @@ class BoidOne extends Boid{
   }
 
   display() {
-    this.angle = this.vel.angle + 1.57079634;
+    this.angle = this.vel.angle + 1.5707963268;
     this.context.stroke(50, 50, 250);
     this.context.fill(255, 20, 2);
     this.context.save();
@@ -248,7 +248,7 @@ class BoidTwo extends Boid{
   }
 
   display() {
-    this.angle = this.vel.angle + 1.57079634;
+    this.angle = this.vel.angle + 1.5707963268;
     this.context.stroke(50, 50, 250);
     this.context.fill(255, 20, 2);
     this.context.save();
@@ -272,7 +272,7 @@ class BoidThree extends Boid{
   }
 
   display() {
-    this.angle = this.vel.angle + 1.57079634;
+    this.angle = this.vel.angle + 1.5707963268;
     this.context.stroke(50, 50, 250);
     this.context.fill(255, 20, 2);
     this.context.save();
@@ -296,7 +296,7 @@ class BoidFour extends Boid{
   }
 
   display() {
-    this.angle = this.vel.angle + 1.57079634;
+    this.angle = this.vel.angle + 1.5707963268;
     this.context.stroke(50, 50, 250);
     this.context.fill(255, 20, 2);
     this.context.save();
