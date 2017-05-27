@@ -8,8 +8,8 @@ constructor(main, headLocation, segmentCount, name){
   super(main, headLocation, segmentCount, name)
   this.main = main
   this.context = this.main.context;
-  this.peedDelay = new Date().getMilliseconds() - startTimeOffSet;
-  this.lastSegmentAdded = new Date().getMilliseconds() - startTimeOffSet;
+  this.peedDelay = Date.now() - startTimeOffSet;
+  this.lastSegmentAdded = Date.now() - startTimeOffSet;
 }
 
 init(){
@@ -27,7 +27,7 @@ run() { // update this
 //  default frameRate is 30fps
 update() { // render or draw this to canvas
   //  If no this.this.body--go no further
-  if (this.pbody.length < 1) return;
+  if (this.body.length < 1) return;
       // Check each boid to see if it is touching any segments in loop
   this.peedhitindexes  = [];
   for (let i = 0; i < this.body.length; i++) {
@@ -43,7 +43,7 @@ update() { // render or draw this to canvas
     if ( game.livesLeft < 1) game.gameEnded = true;
     this.min = getMinIndex();
     //Remove list elements from end to min index
-    for (i = this.body.length - 1; i >= this.min + 1; i--) {
+    for (let i = this.body.length - 1; i >= this.min + 1; i--) {
       this.body.splice(i, 1);
     }
 }
@@ -56,7 +56,7 @@ if ( millis() - this.peedDelay > 30 && this.moved) { //millis() - peedDelay > 10
   if (this.south)  this.body[0].loc.y += blockSize/1.5;
   this.peedDelay = millis();
   // move this.body to follow head
-  for (i = this.body.length - 1; i > 0 ; i--) {
+  for (let i = this.body.length - 1; i > 0 ; i--) {
     //  let loc of segment equal loc of segment ahead
     this.body[i].loc.x = this.body[i-1].loc.x;
     this.body[i].loc.y = this.body[i-1].loc.y;
@@ -89,8 +89,8 @@ if (game.gameEnded && game.score > highestScore) {
 }
 
 render() { // render or draw this to canvas
-  for (i = 1; i < this.body.length; i++) {
-    if (i == 1) {
+  for (let i = 1; i < this.body.length; i++) {
+    if (i === 1) {
       this.body[i].display("head", i);
       }
     else {

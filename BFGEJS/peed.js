@@ -13,7 +13,7 @@ class Peed{
     this.body = [];
     this.north = true;
     this.moved = false;
-    this.lastSegmentAdded = new Date().getMilliseconds() - startTimeOffSet;
+    this.lastSegmentAdded = Date.now() - startTimeOffSet;
   }
 
   init(){

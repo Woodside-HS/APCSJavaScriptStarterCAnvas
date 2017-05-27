@@ -18,7 +18,7 @@ class Loop extends Peed{
   }
   update() { // render or draw this to canvas
     //remove loop after spec time
-    if (new Date().getMilliseconds() - startTimeOffSet - game.loopTimeLapsed > 2000 && this.body.length > 0 ) {
+    if (Date.now() - startTimeOffSet - game.loopTimeLapsed > 2000 && this.body.length > 0 ) {
       // remove all segments from loop body
       for (let i = body.length - 1; i >= 0; i-- ) {
         body.splice(i, 1);

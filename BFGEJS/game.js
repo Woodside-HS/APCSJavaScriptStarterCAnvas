@@ -10,7 +10,7 @@ class Game {
     this.gameEnded = false;
     this.loopMade = false;
     this.level++;
-    this.loopTimeLapsed = new Date().getMilliseconds() - startTimeOffSet;
+    this.loopTimeLapsed = Date.now() - startTimeOffSet;
     this.buttons  = []
     this.score = 0;
     this.livesLeft = 4;
@@ -19,7 +19,7 @@ class Game {
        new vector2d(0, 0),  new vector2d(0, 0)
      ]
     this.player = new Player(this.main, new vector2d(blockSize*12, blockSize*12), 5, "player");
-    this.loop = new Loop(this. main, new vector2d(blockSize*10, blockSize*10), 0, "loop");
+    this.loop = new Loop(this.main, new vector2d(blockSize*10, blockSize*10), 0, "loop");
     this.infoArea = new InfoArea(this.main, new vector2d(playAreaSize, 0), infoBarSize, screenH, "#0A3208");
     this.playArea = new PlayArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A945A");
     this.startArea = new SplashArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 0, 2);
@@ -86,6 +86,7 @@ class Game {
   }
   run() {
     this.infoArea.run();
+    this.gameStarted = true
     if (!this.gameStarted) {
       this.startArea.run();
     }
