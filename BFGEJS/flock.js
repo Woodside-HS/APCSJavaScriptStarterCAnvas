@@ -2,6 +2,7 @@ class Flock {
 
   constructor(main) {
     this.main = main
+    this.context = this.main.context;
     this.boids = []; // Initialize the ArrayList
     this.boidsOne;     // An ArrayList for type one the boids
     this.boidsTwo;     // An ArrayList for type two the boids
@@ -10,8 +11,8 @@ class Flock {
   }
 
   run() {
-    for (var b in boids) {
-      b.run(boids);                // Passing the entire list of boids to each boid individually
+    for (var b in this.boids) {
+      b.run(this.boids);                // Passing the entire list of boids to each boid individually
     }
   }
 

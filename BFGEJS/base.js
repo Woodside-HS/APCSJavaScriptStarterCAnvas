@@ -1,7 +1,8 @@
 class Base {
 
-  constructor(m, location) {
-    this.main = m
+  constructor(main, location) {
+    this.main = main
+    this.context = this.main.context;
     this.loc = location;
   }
 
@@ -10,10 +11,10 @@ class Base {
   }
 
   run() {
-    display()
+    this.display()
   }
 
   display() {
-    image(home, loc.x+25, loc.y+8);
+    this.context.drawImage(home, this.loc.x+25, this.loc.y+8);
   }
 } // end  class

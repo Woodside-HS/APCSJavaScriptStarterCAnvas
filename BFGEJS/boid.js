@@ -4,8 +4,9 @@
 // Start Boid class  +++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Boid {
   //  Boid constructor
-  constructor(m, x, y) {
-    this.main = m;
+  constructor(main, x, y) {
+    this.main = main
+    this.context = this.main.context;
     this.acc = vector2d(0,0)
     this.loc = vector2d(x,y);
     this.angle = Math.random()*Math.PI
@@ -216,8 +217,8 @@ class Boid {
 }
 
 class BoidOne extends Boid{
-  constructor(x, y) {
-    super(x, y);
+  constructor(main, x, y) {
+    super(main, x, y);
     this.maxspeed = 33;
     this.hitPlayer = false;
     this.count = Math.random()*birdOneImages.length-1;
@@ -240,8 +241,8 @@ class BoidOne extends Boid{
 }
 
 class BoidTwo extends Boid{
-  constructor(x, y) {
-    super(x, y);
+  constructor(main, x, y) {
+    super(main, x, y);
     this.maxspeed = 12;
     this.hitPlayer = false;
     this.count = Math.random()*birdOneImages.length-1;
@@ -264,8 +265,8 @@ class BoidTwo extends Boid{
 }
 
 class BoidThree extends Boid{
-  constructor(x, y) {
-    super(x, y);
+  constructor(main, x, y) {
+    super(main, x, y);
     this.maxspeed = 1.8;
     this.hitPlayer = false;
     this.count = Math.random()*birdOneImages.length-1;
@@ -288,8 +289,8 @@ class BoidThree extends Boid{
 }
 
 class BoidFour extends Boid{
-  constructor(x, y) {
-    super(x, y);
+  constructor(main, x, y) {
+    super(main, x, y);
     this.maxspeed = 2;
     this.hitPlayer = false;
     this.count = Math.random()*birdOneImages.length-1;
