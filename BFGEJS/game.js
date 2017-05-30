@@ -22,7 +22,7 @@ class Game {
     this.loop = new Loop(this.main, new vector2d(blockSize*10, blockSize*10), 0, "loop");
     this.infoArea = new InfoArea(this.main, new vector2d(playAreaSize, 0), infoBarSize, screenH, "#0A3208");
     this.playArea = new PlayArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A945A");
-    this.startArea = new SplashArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 0, 2);
+    this.startArea = new SplashArea(this.main,  vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 0, 2);
     this.endArea = new SplashArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 2, 1);
     this.base = new Base(this.main, new vector2d(blockSize*12-25, blockSize*12-25));
     this.flock = 0
@@ -31,7 +31,7 @@ class Game {
 
   draw(){
     game.run()
-    window.setTimeout(this.draw,100)
+    //window.setTimeout(this.draw,100)
   }
 
   //  Methods (Behaviors)  +++++++++++++++++++++++++
@@ -86,7 +86,7 @@ class Game {
   }
   run() {
     this.infoArea.run();
-    this.gameStarted = true
+    //this.gameStarted = true
     if (!this.gameStarted) {
       this.startArea.run();
     }
@@ -114,32 +114,32 @@ class Game {
   }
 
   mousePressedHandler(mouseLoc) {
-    if (!this.gameStarted && (this.buttons.get(2).hitTest(mouseLoc))) {
+    if (!this.gameStarted && (this.buttons[2].hitTest(mouseLoc))) {
       this.gameStarted = true;
-      this.startGameTime = millis();
+      this.startGameTime = this.loopTimeLapsed
     }
-    if (this.gameEnded && (this.buttons.get(0).hitTest(mouseLoc))) {
+    if (this.gameEnded && (this.buttons[0].hitTest(mouseLoc))) {
       this.initGame();
     }
   }
 
   mouseMovedHandler(mouseLoc) {
-    this.clr1 = color(159, 196, 176);
-    this.clr2 = color(45, 54, 74);
-    if ((this.buttons.get(0).hitTest(mouseLoc)))
-      this.buttons.get(0).clr = this.clr1;
+    this.clr1 = "rgb(159, 196, 176)";
+    this.clr2 = "rgb(45, 54, 74)";
+    if ((this.buttons[0].hitTest(mouseLoc)))
+      this.buttons[0].clr = this.clr1;
     else
-      this.buttons.get(0).clr = this.clr2;
+      this.buttons[0].clr = this.clr2;
 
-    if ((this.buttons.get(1).hitTest(mouseLoc)))
-      this.buttons.get(1).clr = this.clr1;
+    if ((this.buttons[1].hitTest(mouseLoc)))
+      this.buttons[1].clr = this.clr1;
     else
-      this.buttons.get(1).clr = this.clr2;
+      this.buttons[1].clr = this.clr2;
 
-    if ((this.buttons.get(2).hitTest(mouseLoc)))
-      this.buttons.get(2).clr = this.clr1;
+    if ((this.buttons[2].hitTest(mouseLoc)))
+      this.buttons[2].clr = this.clr1;
     else
-      this.buttons.get(2).clr = this.clr2;
+      this.buttons[2].clr = this.clr2;
   }
 
   makeButtons() {
@@ -152,8 +152,8 @@ class Game {
   }
 
   makeLoop(index) {
-    this.x = this.player.body.get(0).loc.x;
-    this.y = this.player.body.get(0).loc.y;
+    this.x = this.player.body[0].loc.x;
+    this.y = this.player.body[0].loc.y;
     if (!this.loopMade) {
       this.loop   = new Loop(this.main, new vector2d(this.x, this.y), index, "loop");
       this.loopTimeLapsed = millis();
@@ -174,10 +174,10 @@ class Game {
     this.minY = MAX_FLOAT;
     //get extreems and load into PVector Array
     for (let i = 0; i < this.loop.body.size(); i++) {
-      if (this.maxX < this.loop.body.get(i).loc.x + 4) this.maxX = loop.body.get(i).loc.x;
-      if (this.maxY < this.loop.body.get(i).loc.y) this.maxY = loop.body.get(i).loc.y;
-      if (this.minX > this.loop.body.get(i).loc.x - 4) this.minX = loop.body.get(i).loc.x;
-      if (this.minY > this.loop.body.get(i).loc.y) this.minY = loop.body.get(i).loc.y;
+      if (this.maxX < this.loop.body[i].loc.x + 4) this.maxX = loop.body[i].loc.x;
+      if (this.maxY < this.loop.body[i].loc.y) this.maxY = loop.body[i].loc.y;
+      if (this.minX > this.loop.body[i].loc.x - 4) this.minX = loop.body[i].loc.x;
+      if (this.minY > this.loop.body[i].loc.y) this.minY = loop.body[i].loc.y;
     }
     this.loopBounds[0].x = this.maxX;
     this.loopBounds[0].y = this.maxY;

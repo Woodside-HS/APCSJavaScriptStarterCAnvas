@@ -48,9 +48,9 @@ render(){
 //  button when pressed
 hitTest(mouseLoc) {
   if (  mouseLoc.x > this.loc.x       &&
-    mouseLoc.x < this.loc.x + myWidth &&
+    mouseLoc.x < this.loc.x + this.myWidth &&
     mouseLoc.y > this.loc.y           &&
-    mouseLoc.y < this.loc.y + myHeight   )
+    mouseLoc.y < this.loc.y + this.myHeight   )
     return true;
 
   return false;
