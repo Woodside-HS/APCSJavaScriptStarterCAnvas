@@ -15,6 +15,6 @@ class Base {
   }
 
   display() {
-    this.context.drawImage(home, this.loc.x+25, this.loc.y+8);
+    this.context.drawImage(this.main.home, this.loc.x+25, this.loc.y+8);
   }
 } // end  class

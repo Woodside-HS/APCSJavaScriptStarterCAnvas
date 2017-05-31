@@ -18,13 +18,13 @@ class Game {
     this.loopBounds = [
        new vector2d(0, 0),  new vector2d(0, 0)
      ]
-    this.player = new Player(this.main, new vector2d(blockSize*12, blockSize*12), 5, "player");
-    this.loop = new Loop(this.main, new vector2d(blockSize*10, blockSize*10), 0, "loop");
-    this.infoArea = new InfoArea(this.main, new vector2d(playAreaSize, 0), infoBarSize, screenH, "#0A3208");
-    this.playArea = new PlayArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A945A");
-    this.startArea = new SplashArea(this.main,  vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 0, 2);
-    this.endArea = new SplashArea(this.main, new vector2d(0, 0), playAreaSize, screenH, "#5A6C94", 2, 1);
-    this.base = new Base(this.main, new vector2d(blockSize*12-25, blockSize*12-25));
+    this.player = new Player(this.main, new vector2d(this.blockSize*12, this.blockSize*12), 5, "player");
+    this.loop = new Loop(this.main, new vector2d(this.blockSize*10, this.blockSize*10), 0, "loop");
+    this.infoArea = new InfoArea(this.main, new vector2d(this.playAreaSize, 0), this.infoBarSize, this.screenH, "#0A3208");
+    this.playArea = new PlayArea(this.main, new vector2d(0, 0), this.playAreaSize, this.screenH, "#5A945A");
+    this.startArea = new SplashArea(this.main,  vector2d(0, 0), this.playAreaSize, this.screenH, "#5A6C94", 0, 2);
+    this.endArea = new SplashArea(this.main, new vector2d(0, 0), this.playAreaSize, this.screenH, "#5A6C94", 2, 1);
+    this.base = new Base(this.main, new vector2d(this.blockSize*12-25, this.blockSize*12-25));
     this.flock = 0
     this.generateFlock(8);
   }
@@ -42,29 +42,29 @@ class Game {
 
     if (this.level === 1)
       for (let i = 0; i < numBoids; i++) {
-        flock.addBoid(new BoidOne(this.main, playAreaSize/2, playAreaSize/2));
+        flock.addBoid(new BoidOne(this.main, this.main.playAreaSize/2, this.main.playAreaSize/2));
       }
     else if (this.level === 3) {
       this.livesLeft = 4;
       for (let i = 0; i < numBoids; i++) {
-        flock.addBoid(new BoidOne(this.main, 300, playAreaSize/4));
-        flock.addBoid(new BoidTwo(this.main, playAreaSize - 300, playAreaSize - 100));
+        flock.addBoid(new BoidOne(this.main, 300, this.main.playAreaSize/4));
+        flock.addBoid(new BoidTwo(this.main, this.main.playAreaSize - 300, this.main.playAreaSize - 100));
       }
     }
     else if (this.level === 5) {
       this.livesLeft = 4;
       for (let i = 0; i < numBoids; i++) {
-        flock.addBoid(new BoidOne(this.main, playAreaSize/4, playAreaSize/2));
-        flock.addBoid(new BoidTwo(this.main, playAreaSize - 300, playAreaSize - 100));
-        flock.addBoid(new BoidThree(this.main, playAreaSize/2, playAreaSize/4));
+        flock.addBoid(new BoidOne(this.main, this.main.playAreaSize/4, this.main.playAreaSize/2));
+        flock.addBoid(new BoidTwo(this.main, this.main.playAreaSize - 300, this.main.playAreaSize - 100));
+        flock.addBoid(new BoidThree(this.main, this.main.playAreaSize/2, this.main.playAreaSize/4));
       }
     }
     else if (this.level === 7) {
       this.livesLeft = 4;
       for (let i = 0; i < numBoids; i++) {
-        flock.addBoid(new BoidOne(this.main, playAreaSize/4, playAreaSize/2));
-        flock.addBoid(new BoidTwo(this.main, playAreaSize - 300, playAreaSize - 100));
-        flock.addBoid(new BoidThree(this.main, playAreaSize/2, playAreaSize/4));
+        flock.addBoid(new BoidOne(this.main, this.main.playAreaSize/4, this.main.playAreaSize/2));
+        flock.addBoid(new BoidTwo(this.main, this.main.playAreaSize - 300, this.main.playAreaSize - 100));
+        flock.addBoid(new BoidThree(this.main, this.main.playAreaSize/2, this.main.playAreaSize/4));
         flock.addBoid(new BoidFour(this.main, 500, 700));
       }
     }
@@ -75,22 +75,24 @@ class Game {
     // Add an initial set of boids into the system
     for (let i = 0; i < numboids; i++) {
       if (this.level===1)
-        flock.addBoid(new BoidOne(this.main, width/2, height/2));
+        flock.addBoid(new BoidOne(this.main, this.main.screenW/2, this.main.screenH/2));
       else if (this.level===2)
-        flock.addBoid(new BoidTwo(this.main, width/2, height/2));
+        flock.addBoid(new BoidTwo(this.main, this.main.screenW/2, this.main.screenH/2));
       else if (this.level===3)
-        flock.addBoid(new BoidThree(this.main, width/2, height/2));
+        flock.addBoid(new BoidThree(this.main, this.main.screenW/2, this.main.screenH/2));
       else
-        flock.addBoid(new BoidFour(this.main, width/2, height/2));
+        flock.addBoid(new BoidFour(this.main, this.main.screenW/2, this.main.screenH/2));
     }
   }
   run() {
+
     this.infoArea.run();
     //this.gameStarted = true
     if (!this.gameStarted) {
       this.startArea.run();
     }
     else if (!this.gameEnded) {
+      this.player.addBodySegments(this.player.segCount)
       if (currLevel != this.level) {
 
         currLevel = this.level;
@@ -146,9 +148,9 @@ class Game {
     this.w = 400;
     this.h = 150;
     //Evntually we can place these in in an array list of Buttons
-    this.buttons.push( new Button(this.main, "Play", new vector2d(blockSize*numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
-    this.buttons.push( new Button(this.main, "Instructions", new vector2d(blockSize*numBlocks/3.5, 400), this.w, this.h, "#2D364A"));
-    this.buttons.push( new Button(this.main, "Reset?", new vector2d(blockSize*numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Play", new vector2d(this.blockSize*this.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Instructions", new vector2d(this.blockSize*this.numBlocks/3.5, 400), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Reset?", new vector2d(this.blockSize*this.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
   }
 
   makeLoop(index) {

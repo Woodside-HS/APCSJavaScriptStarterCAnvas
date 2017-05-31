@@ -3,10 +3,34 @@
 window.addEventListener('load', setup, false);
 const ARB_OFFSET_X = 15;
 const ARB_OFFSET_Y = 60
+
+const TWO_PI = Math.PI*2;
+var main;
+var startTimeOffSet = Date.now();
+const FRAME_RATE=30;
+
+function setup() {
+  main = new Main()
+  window.setTimeout(draw, 100);    // wait 100ms for resources to load then start draw loop
+}
+
+function draw() {   // the animation loop
+  main.run()
+  window.setTimeout(draw, 1000/FRAME_RATE);  // come back here every interval
+}
+
 class Main {
   //  Main constructor
   constructor() {
-
+    this.game = new Game(this)
+    this.clock;
+    this.seg;
+    this.home;
+    this.segHeadImages = [];
+    this.flock1Images = [];
+    this.flock2Images = [];
+    this.flock3Images = [];
+    this.flock4Images = [];
     //Start create a canvas element ++++++++++++++++++++++++++++++++
     this.canvas = document.getElementById("canDiv");
     this.canvas.style.backgroundColor = 'white';
@@ -23,43 +47,43 @@ class Main {
     throw "No valid context found!";
     //End create a canvas element ++++++++++++++++++++++++++++++++
     // declare instance variables for main
-    this.menuButtons = [];
-    this.makeRect = false;
     this.boids = []
+
+    this.startGameTime = 0;
+    this.blockSize = 15;
+    this.numBlocks = 60;
+    this.infoBarSize = 150;
+    this.playAreaSize = this.blockSize*this.numBlocks;
+    this.screenW = this.blockSize*this.numBlocks + this.infoBarSize;
+    this.screenH = this.blockSize*this.numBlocks;
+    this.highestScore = 0;
+    this.level
+    this.currLevel;
     //create all initial items
     this.init();
 
   }
 
   init(){
-    // get the current time
+
     this.lastTime = Date.now();
-    // select canvas for callbacks
+
     this.canvas.addEventListener('mousemove',this.handleCNVMouseMoved,false);
     this.canvas.addEventListener('mouseover',this.handleCNVMouseOver, false);
     this.canvas.addEventListener('click', this.handleCNVMouseClicked, false);
 
-    // create boids
-    for(let i = 0; i < 8; i++){
-      this.boids[i] = new Boid(this, 300,300);
-    }
-
-    this.base = new Base(this, vector2d(blockSize*12-25, blockSize*12-25));
+    this.loadImages()
   }
 
   handleCNVMouseMoved(e){
-    game.mouseMovedHandler(new vector2d(e.offsetX+ARB_OFFSET_X,e.offsetY+ARB_OFFSET_Y)); // arbataryy offset glitch
+    main.game.mouseMovedHandler(new vector2d(e.offsetX+ARB_OFFSET_X,e.offsetY+ARB_OFFSET_Y)); // arbataryy offset glitch
   }
   handleCNVMouseClicked(e){
-    game.mousePressedHandler(new vector2d(e.offsetX+ARB_OFFSET_X,e.offsetY+ARB_OFFSET_Y)); // arbataryy offset glitch
+    main.game.mousePressedHandler(new vector2d(e.offsetX+ARB_OFFSET_X,e.offsetY+ARB_OFFSET_Y)); // arbataryy offset glitch
   }
 
   run() { // update canvas components --> called from draw()
-    for(let j in this.boids){
-      this.boids[j].run(this.boids)
-    }
-     this.render();
-
+    this.game.run()
   }
 
   render() { // render or draw stuff to canvas
@@ -71,93 +95,46 @@ class Main {
 
   }
 
+  loadImages() {
+    this.home = new Image();
+    this.home.src = "images/other/home.png"
+
+    //+++++++  Bird One  +++++++++++++++++++++++++++++++++
+    this.flock1Images = [{},{},{},{},{},{},{},{},{},{},{},{},{}];
+    for (let i=0; i < this.flock1Images.length-1; i++) {
+      this.flock1Images[i] = new Image()
+      this.flock1Images[i].src = "images/flock1/b"+i+".png";
+    }
+    //+++++++  Bird Two  +++++++++++++++++++++++++++++++++
+    this.flock2Images = [{},{},{},{},{},{},{},{},{}]
+    for (let i=0; i < this.flock2Images.length - 1; i++) {
+      this.flock2Images[i] = new Image()
+      this.flock2Images[i].src = "images/flock2/bb"+i+".png";
+    }
+    //+++++++  Bird Three  +++++++++++++++++++++++++++++++++
+    this.flock3Images = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+    for (let i=0; i < this.flock3Images.length - 1; i++) {
+      this.flock3Images[i] = new Image()
+      this.flock3Images[i].src = "images/flock3/b"+i+".png"
+    }
+    //+++++++  Bird Four  +++++++++++++++++++++++++++++++++
+    this.flock4Images = [{},{},{},{},{},{},{},{},{}]
+    for (let i=0; i < this.flock4Images.length - 1; i++) {
+      this.flock4Images[i] = new Image()
+      this.flock4Images[i].src = "images/flock4/b"+i+".png";
+    }
+
+    //+++++++  SegHead  +++++++++++++++++++++++++++++++++
+    this.segHeadImages = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
+    for (let i=0; i < this.segHeadImages.length - 1; i++) {
+      this.segHeadImages[i] = new Image()
+      this.segHeadImages[i].src = "images/segHead/h"+i+".png";
+    }
+  }
+
 
 }//  end main class ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// add functionality to your buttons here
 
-// wait for the window to load and than call back setup()
-  // the global Main object
-const FRAME_RATE=30;
-const TWO_PI = Math.PI
-//  ++++++  Gloabal Variables
-var main=null
-var startGameTime = 0;
-var blockSize = 15;
-var numBlocks = 60;
-var infoBarSize = 150;
-var playAreaSize = blockSize*numBlocks;
-var screenW = blockSize*numBlocks + infoBarSize;
-var screenH = blockSize*numBlocks;
-var highestScore = 0;
-var level, currLevel;
-//  ++++++  Declare images
-var clock, seg, home;
-var segHeadImages;
-var flock1Images;
-var flock2Images;
-var flock3Images;
-var flock4Images;
-//  ++++++  Global objects
-var game;
-var startTimeOffSet = Date.now()
-
-function setup() {
-  main = new Main()
-  game = new Game(main);
-  initGame();
-  window.setTimeout(draw, 100);    // wait 100ms for resources to load then start draw loop
-}
-
-function draw() {   // the animation loop
-  game.run();
-  window.setTimeout(draw, 1000/FRAME_RATE);  // come back here every interval
-}
-
-function initGame() {
- level = currLevel = 0;
- loadImages();
-}
-
-function loadImages() {
-  clock = new Image();
-  clock.src = ""
-  seg = new Image();
-  seg.src = ""
-  home = new Image();
-  home.src = "home.png"
-
-  //+++++++  Bird One  +++++++++++++++++++++++++++++++++
-  flock1Images = [{},{},{},{},{},{},{},{},{},{},{},{},{}];
-  for (let i=0; i < flock1Images.length-1; i++) {
-    flock1Images[i] = new Image()
-    flock1Images[i].src = "birdOne/b"+i+".png";
-  }
-  //+++++++  Bird Two  +++++++++++++++++++++++++++++++++
-  flock2Images = [{},{},{},{},{},{},{},{},{}]
-  for (let i=0; i < flock2Images.length - 1; i++) {
-    flock2Images[i] = new Image()
-    flock2Images[i].src = "birdTwo/bb"+i+".png";
-  }
-  //+++++++  Bird Three  +++++++++++++++++++++++++++++++++
-  flock3Images = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
-  for (let i=0; i < flock3Images.length - 1; i++) {
-    flock3Images[i] = new Image()
-    flock3Images[i].src = "birdThree/b"+i+".png"
-  }
-  //+++++++  Bird Four  +++++++++++++++++++++++++++++++++
-  flock4Images = [{},{},{},{},{},{},{},{},{}]
-  for (let i=0; i < flock4Images.length - 1; i++) {
-    flock4Images[i] = new Image()
-    flock4Images[i].src = "Bat/b"+i+".png";
-  }
-
-  //+++++++  SegHead  +++++++++++++++++++++++++++++++++
-  segHeadImages = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
-  for (let i=0; i < segHeadImages.length - 1; i++) {
-    segHeadImages[i] = new Image()
-    segHeadImages[i].src = "segHead/h"+i+".png";
-  }
-}
 
 function keyPressed() {
   game.keyCodeHandler(keyCode);

@@ -17,23 +17,6 @@ class Peed{
   }
 
   init(){
-    //used for both player and loop
-    this.body = [];
-    //Gathers the indexes of each segment that hits a boid
-    this.peedHitIndexes = [];
-    //Gathers the indexes of each segment that hits a boid
-    this.loc = new vector2d();
-    this.clr;
-    this.north
-    this.south
-    this.east
-    this.west
-    this.moved;
-    this.name;
-    this.segCount;
-    this.peedDelay;
-    this.addSegmentInterval = 100;
-    this.lastSegmentAdded;
   }
 
   run() { // update this
@@ -55,8 +38,8 @@ class Peed{
   addBodySegments(numSegments) {
 
     for (let i = 0; i < numSegments; i++) {
-      this.x = game.player.body[i].loc.x;
-      this.y = game.player.body[i].loc.y;
+      this.loc.x = this.body[i].loc.x;
+      this.loc.y = this.body[i].loc.y;
       this.body.push(new Segment(this.main, this.x, this.y, i));
 
     }
