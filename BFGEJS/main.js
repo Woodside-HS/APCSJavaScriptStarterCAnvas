@@ -22,7 +22,6 @@ function draw() {   // the animation loop
 class Main {
   //  Main constructor
   constructor() {
-    this.game = new Game(this)
     this.clock;
     this.seg;
     this.home;
@@ -61,6 +60,7 @@ class Main {
     this.currLevel;
     //create all initial items
     this.init();
+    this.game = new Game(this)
 
   }
 
@@ -88,10 +88,10 @@ class Main {
 
   render() { // render or draw stuff to canvas
     //this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
-    if(this.makeRect){
-      this.context.fillStyle = '#554499';
-      this.context.fillRect(10, 10, 100, 100);
-    }
+    // if(this.makeRect){
+    //   this.context.fillStyle = '#554499';
+    //   this.context.fillRect(10, 10, 100, 100);
+    // }
 
   }
 

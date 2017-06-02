@@ -18,13 +18,13 @@ class Game {
     this.loopBounds = [
        new vector2d(0, 0),  new vector2d(0, 0)
      ]
-    this.player = new Player(this.main, new vector2d(this.blockSize*12, this.blockSize*12), 5, "player");
-    this.loop = new Loop(this.main, new vector2d(this.blockSize*10, this.blockSize*10), 0, "loop");
-    this.infoArea = new InfoArea(this.main, new vector2d(this.playAreaSize, 0), this.infoBarSize, this.screenH, "#0A3208");
-    this.playArea = new PlayArea(this.main, new vector2d(0, 0), this.playAreaSize, this.screenH, "#5A945A");
-    this.startArea = new SplashArea(this.main,  vector2d(0, 0), this.playAreaSize, this.screenH, "#5A6C94", 0, 2);
-    this.endArea = new SplashArea(this.main, new vector2d(0, 0), this.playAreaSize, this.screenH, "#5A6C94", 2, 1);
-    this.base = new Base(this.main, new vector2d(this.blockSize*12-25, this.blockSize*12-25));
+    this.player = new Player(this.main, new vector2d(this.main.blockSize*12, this.main.blockSize*12), 5, "player");
+    this.loop = new Loop(this.main, new vector2d(this.main.blockSize*10, this.main.blockSize*10), 0, "loop");
+    this.infoArea = new InfoArea(this.main, new vector2d(this.main.playAreaSize, 0), this.main.infoBarSize, this.main.screenH, "#0A3208");
+    this.playArea = new PlayArea(this.main, new vector2d(0, 0), this.main.playAreaSize, this.main.screenH, "#5A945A");
+    this.startArea = new SplashArea(this.main,  vector2d(0, 0), this.main.playAreaSize, this.main.screenH, "#5A6C94", 0, 2);
+    this.endArea = new SplashArea(this.main, new vector2d(0, 0), this.main.playAreaSize, this.main.screenH, "#5A6C94", 2, 1);
+    this.base = new Base(this.main, new vector2d(this.main.blockSize*12-25, this.main.blockSize*12-25));
     this.flock = 0
     this.generateFlock(8);
   }
@@ -92,10 +92,11 @@ class Game {
       this.startArea.run();
     }
     else if (!this.gameEnded) {
-      this.player.addBodySegments(this.player.segCount)
-      if (currLevel != this.level) {
+            console.log(this.player.segCount);
+      this.player.bodySegments(this.player.segCount)
+      if (this.main.currLevel != this.level) {
 
-        currLevel = this.level;
+        this.main.currLevel = this.level;
       }
       this.playArea.run();
       this.flock.run();
@@ -148,9 +149,9 @@ class Game {
     this.w = 400;
     this.h = 150;
     //Evntually we can place these in in an array list of Buttons
-    this.buttons.push( new Button(this.main, "Play", new vector2d(this.blockSize*this.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
-    this.buttons.push( new Button(this.main, "Instructions", new vector2d(this.blockSize*this.numBlocks/3.5, 400), this.w, this.h, "#2D364A"));
-    this.buttons.push( new Button(this.main, "Reset?", new vector2d(this.blockSize*this.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Play", new vector2d(this.main.blockSize*this.main.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Instructions", new vector2d(this.main.blockSize*this.main.numBlocks/3.5, 400), this.w, this.h, "#2D364A"));
+    this.buttons.push( new Button(this.main, "Reset?", new vector2d(this.main.blockSize*this.main.numBlocks/3.5, 200), this.w, this.h, "#2D364A"));
   }
 
   makeLoop(index) {

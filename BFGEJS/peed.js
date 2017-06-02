@@ -36,7 +36,6 @@ class Peed{
 
   //  ads (numSegments) segment abject to the body arraylist
   addBodySegments(numSegments) {
-
     for (let i = 0; i < numSegments; i++) {
       this.loc.x = this.body[i].loc.x;
       this.loc.y = this.body[i].loc.y;
@@ -48,7 +47,10 @@ class Peed{
   //Use key code to set direction
    setDirection(kc) {
       // set to true no matter what key is pressed
-     this.north = this.south = this.east = this.west = false;
+     this.north = false
+     this.south = false
+     this.east = false
+     this.west = false;
      switch(kc) {
      case 38:
        this.north = true;
