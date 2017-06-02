@@ -4,7 +4,7 @@ body{
 }
 
 #wrapperDiv{
-  background-color: red;
+  background-color: #260F59;
   width:1000px;
   height:850px;
   border:solid black 2px;
@@ -16,12 +16,5 @@ body{
   background-color: #79BEA6;
   width:1000px;
   height:750px;
-
-}
-
-#menuDiv{
-  background-color: #06583B;
-  width:1000px;
-  height:100px;
 
 }
